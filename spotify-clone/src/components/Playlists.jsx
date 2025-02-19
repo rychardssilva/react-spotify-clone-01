@@ -42,44 +42,8 @@ function Playlists() {
   }, [token, dispatch]);
 
   return(
-    <div>
+    <div >
          {console.log("Playlists dentro da sidebar:", playlists)}
-        <ul className="">
-            {
-                playlists.map(({name,id,image})=>{
-                    return(
-                        <li key={id} className="flex items-center p-2 ">
-                            {image && <img src={image} alt={name} className="" />}
-                            <span className='flex space-y-8'>{name}</span>
-                        </li>
-                    )
-                })
-            }
-        </ul>
-        <ul>
-            {
-                playlists.map(({name,id,image})=>{
-                    return(
-                        <li key={id} className="flex items-center p-2 ">
-                            {image && <img src={image} alt={name} className="" />}
-                            <span className='flex space-y-8'>{name}</span>
-                        </li>
-                    )
-                })
-            }
-        </ul>
-        <ul>
-            {
-                playlists.map(({name,id,image})=>{
-                    return(
-                        <li key={id} className="flex items-center p-2 ">
-                            {image && <img src={image} alt={name} className="" />}
-                            <span className='flex space-y-8'>{name}</span>
-                        </li>
-                    )
-                })
-            }
-        </ul>
         <ul>
             {
                 playlists.map(({name,id,image})=>{

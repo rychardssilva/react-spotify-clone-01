@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+
+aside {
+    overflow-y: auto; /* Garante que a barra de rolagem apareça */
+  }
+  
+  aside::-webkit-scrollbar {
+    width: 0.7rem
+  }
+  
+  aside::-webkit-scrollbar-thumb {
+    background: #4c4c5c; /* Cor da barra (red-700 no Tailwind) */
+    border-radius: 4px;
+  }
+  
+  aside::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.6) /* Cor de fundo (zinc-900) */
+  }
+  

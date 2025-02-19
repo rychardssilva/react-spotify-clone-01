@@ -3,7 +3,7 @@ import { Play, Shuffle, SkipBack, SkipForward, Repeat, MicVocal, Computer, Layou
  
  function Footer (){
     return(
-        <footer className="bg-zinc-800 border-t border-zinc-700 px-6 py-4 flex items-center ">
+        <footer className="bg-zinc-800 border-t border-zinc-700 px-2 py-2 flex items-center fixed bottom-0 left-0 right-0   ">
         <div className='flex items-center gap-2 flex-1'>
           <img src="album.jpg" width={56} height={56} alt="Capa do album ASTROWORLD do Travis Scott" />
           <div className='flex flex-col'>

@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 
 function Body() {
     return (
-        <main className="flex-1 p-6 bg-amber-300 rounded-2xl ml-3">
+        <main className="flex-1 p-2 bg-amber-300 rounded-2xl ml-3 overflow-y-auto ">
             <div className="flex items-center gap-4">
                 <button className="rounded-full bg-black/40 p-1">
                     <ChevronLeft />
