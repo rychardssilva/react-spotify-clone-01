@@ -36,7 +36,7 @@ function Playlists() {
           <li
             key={playlist.id}
             className="flex items-center p-2 cursor-pointer hover:bg-gray-800 rounded"
-            onClick={() => handlePlaylistClick(playlist.id)} // Aqui estamos passando o ID ao clicar
+            onClick={() => handlePlaylistClick(playlist.id)} 
           >
             {playlist.images[0] && (
               <img src={playlist.images[0]?.url} alt={playlist.name} className="w-10 h-10 rounded" />
