@@ -3,73 +3,48 @@ import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 import { reducerCases } from "../utils/Constants";
 
-
 function Playlists() {
-  const [{ token, playlists }, dispatch] = useStateProvider();
-  console.log("Renderizando Playlists:", playlists); // Debug para ver se os dados estão chegando corretamente
+  const [{ token, playlists, selectedPlaylistId }, dispatch] = useStateProvider();
+
+  // Função para lidar com o clique na playlist e salvar o ID
+  const handlePlaylistClick = (id) => {
+    dispatch({ type: reducerCases.SET_SELECTED_PLAYLIST, selectedPlaylistId: id });
+  };
 
   useEffect(() => {
-    const getPlaylistData = async () => {
-      let allPlaylists = [];
-      let nextUrl = `https://api.spotify.com/v1/me/playlists?limit=50`; // Inicializa com o limite de 50
+    if (!token) return;
 
-      // Enquanto houver uma URL para a próxima página
-      while (nextUrl) {
-        const response = await axios.get(nextUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+    const getUserPlaylists = async () => {
+      try {
+        const { data } = await axios.get("https://api.spotify.com/v1/me/playlists", {
+          headers: { Authorization: `Bearer ${token}` }
         });
-        console.log(response.data.items); // Aqui você consegue ver o que vem da API
 
-
-
-        const { items, next } = response.data; // Extrai as playlists e a próxima URL
-        allPlaylists = [...allPlaylists, ...items]; // Adiciona as playlists à lista acumulada
-        nextUrl = next; // Atualiza a URL para a próxima página de resultados
+        dispatch({ type: "SET_PLAYLISTS", playlists: data.items });
+      } catch (error) {
+        console.error("Erro ao buscar playlists:", error);
       }
-
-      // Mapeia as playlists para exibição
-      const playlists = allPlaylists.map(({ name, id, images }) => ({ name, id,
-        images: images
-       }));
-      console.log(playlists); // Verifica o resultado completo
-      dispatch({type:reducerCases.SET_PLAYLISTS, playlists})
     };
 
-    getPlaylistData();
+    getUserPlaylists();
   }, [token, dispatch]);
 
-  return(
-    <div >
-         {console.log("Playlists dentro da sidebar:", playlists)}
-        <ul>
-            {
-                playlists.map(({name,id,image})=>{
-                    return(
-                        <li key={id} className="flex items-center p-2 ">
-                            {image && <img src={image} alt={name} className="" />}
-                            <span className='flex space-y-8'>{name}</span>
-                        </li>
-                    )
-                })
-            }
-        </ul>
-        <ul>
-            {
-                playlists.map(({name,id,image})=>{
-                    return(
-                        <li key={id} className="flex items-center p-2 ">
-                            {image && <img src={image} alt={name} className="" />}
-                            <span className='flex space-y-8'>{name}</span>
-                        </li>
-                    )
-                })
-            }
-        </ul>
-        
-        
+  return (
+    <div>
+      <ul>
+        {playlists?.map((playlist) => (
+          <li
+            key={playlist.id}
+            className="flex items-center p-2 cursor-pointer hover:bg-gray-800 rounded"
+            onClick={() => handlePlaylistClick(playlist.id)} // Aqui estamos passando o ID ao clicar
+          >
+            {playlist.images[0] && (
+              <img src={playlist.images[0]?.url} alt={playlist.name} className="w-10 h-10 rounded" />
+            )}
+            <span className="ml-3">{playlist.name}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
